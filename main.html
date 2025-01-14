@@ -1,16 +1,136 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation and Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm" action="submit-form.php" method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
 
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="passwordError"></div>
+
+            <label>
+                <input type="checkbox" id="termsCheckbox"> I accept the terms and conditions
+            </label>
+
+            <button type="submit" id="submitButton" disabled>Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // DOM Elements
+        const form = document.getElementById("registrationForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const termsCheckbox = document.getElementById("termsCheckbox");
+        const submitButton = document.getElementById("submitButton");
+
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+
+        // Function to validate fields
+        function validateFields() {
+            let isValid = true;
+
+            // Validate name
+            if (nameInput.value.trim() === "") {
+                nameError.textContent = "Name is required.";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Validate email
+            if (emailInput.value.trim() === "") {
+                emailError.textContent = "Email is required.";
+                isValid = false;
+            } else if (!/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+                emailError.textContent = "Invalid email format.";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Validate password
+            if (passwordInput.value.trim() === "") {
+                passwordError.textContent = "Password is required.";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            return isValid;
+        }
+
+        // Enable submit button if checkbox is checked
+        termsCheckbox.addEventListener("change", () => {
+            submitButton.disabled = !termsCheckbox.checked;
+        });
+
+        // Form submission handler
+        form.addEventListener("submit", (e) => {
+            if (!validateFields()) {
+                e.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    </script>
 </body>
-
 </html>
+
