@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -17,11 +18,13 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+
         label {
             display: block;
             margin: 10px 0 5px;
             font-weight: bold;
         }
+
         input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
             padding: 8px;
@@ -29,6 +32,11 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
         button {
             padding: 10px 20px;
             background-color: #28a745;
@@ -38,10 +46,12 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
+
         .error {
             color: red;
             font-size: 14px;
@@ -50,7 +60,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Registration Form</h2>
+        <h2>Form Validation and Submission</h2>
         <form id="registrationForm" action="submit-form.php" method="POST">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
@@ -73,7 +83,7 @@
     </div>
 
     <script>
-        // DOM Elements
+        // Get DOM elements
         const form = document.getElementById("registrationForm");
         const nameInput = document.getElementById("name");
         const emailInput = document.getElementById("email");
@@ -85,7 +95,7 @@
         const emailError = document.getElementById("emailError");
         const passwordError = document.getElementById("passwordError");
 
-        // Function to validate fields
+        // Validate fields function
         function validateFields() {
             let isValid = true;
 
@@ -119,18 +129,19 @@
             return isValid;
         }
 
-        // Enable submit button if checkbox is checked
+        // Enable submit button when checkbox is checked
         termsCheckbox.addEventListener("change", () => {
             submitButton.disabled = !termsCheckbox.checked;
         });
 
-        // Form submission handler
+        // Form submission event
         form.addEventListener("submit", (e) => {
             if (!validateFields()) {
-                e.preventDefault(); // Prevent form submission if validation fails
+                e.preventDefault(); // Prevent submission if validation fails
             }
         });
     </script>
 </body>
 </html>
+
 
